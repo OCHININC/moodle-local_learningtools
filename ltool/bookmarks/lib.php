@@ -130,6 +130,20 @@ function ltool_bookmarks_user_save_bookmarks($contextid, $data) {
     }
     $bookrecord = $DB->get_record_sql($sql, $params);
 
+    //Parse from bookmark url to get page info for page title for Epic Library
+    if ($data['pagetype'] == 'mod-data-view') {
+        $parts = parse_url($data['pageurl']);
+        parse_str($parts['query'], $query);
+        $dbid = $query['d'];
+        $recordid = $query['rid'];
+        if (isset($dbid) && strlen($dbid) > 0 && isset($recordid) && strlen($recordid) > 0) {
+            $fieldname = $DB->get_field('data_content', 'content', ['fieldid'=>$dbid, 'recordid'=>$recordid]);
+            if (isset($fieldname) && strlen($fieldname) > 0) {
+                $data['pagetitle'] = $fieldname;   
+            }
+        }    
+    }
+
     if (empty($bookrecord)) {
         $record = new stdclass();
         $record->userid = $USER->id;
