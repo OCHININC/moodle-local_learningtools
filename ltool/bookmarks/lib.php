@@ -130,7 +130,7 @@ function ltool_bookmarks_user_save_bookmarks($contextid, $data) {
     }
     $bookrecord = $DB->get_record_sql($sql, $params);
 
-    //Parse from bookmark url to get page info for page title for Epic Library
+    // Parse from bookmark url to get page info for page title for Epic Library
     if ($data['pagetype'] == 'mod-data-view') {
         $parts = parse_url($data['pageurl']);
         parse_str($parts['query'], $query);
