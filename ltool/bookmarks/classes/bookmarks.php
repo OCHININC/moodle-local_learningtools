@@ -109,6 +109,10 @@ class bookmarks extends \local_learningtools\learningtools {
      * @return void
      */
     public function load_js() {
+        // Don't load bookmarks for guests or non-logged-in users.
+        if (!isloggedin() || isguestuser()) {
+            return;
+        }
         $data = $this->get_tool_records();
         // Load bookmarks tool js configuration.
         ltool_bookmarks_load_bookmarks_js_config($data);
@@ -130,6 +134,10 @@ class bookmarks extends \local_learningtools\learningtools {
      */
     public function tool_active_condition() {
         global $PAGE, $USER;
+        // Don't show bookmarks for guests or non-logged-in users.
+        if (!isloggedin() || isguestuser()) {
+            return '';
+        }
         $pageurl = local_learningtools_clean_mod_assign_userlistid($PAGE->url->out(false), $PAGE->cm);
         $pagebookmarks = ltool_bookmarks_check_page_bookmarks_exist($PAGE->context->id, $pageurl, $USER->id);
         if ($pagebookmarks) {
