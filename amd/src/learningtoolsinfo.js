@@ -32,7 +32,7 @@
         // Add fab button.
         if (loggedin) {
             var pagewrapper = document.querySelector("footer");
-            pagewrapper.insertAdjacentHTML("beforebegin", JSON.parse(fabbuttonhtml));
+            pagewrapper?.insertAdjacentHTML("beforebegin", JSON.parse(fabbuttonhtml));
             var listtools = document.querySelectorAll(".floating-button .list-learningtools")[0];
             var stickytools = document.querySelectorAll(".floating-button .sticky-tools-list")[0];
             var enablesticky = false;
